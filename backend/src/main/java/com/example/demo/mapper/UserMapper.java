@@ -4,8 +4,7 @@ import com.example.demo.dto.request.UserRequest;
 import com.example.demo.dto.response.UserResponse;
 import com.example.demo.entity.RoleEntity;
 import com.example.demo.entity.UserEntity;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+import org.mapstruct.*;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -21,4 +20,6 @@ public interface UserMapper {
                 .map(RoleEntity::getName)
                 .collect(Collectors.toSet());
     }
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void updateUserEntityFromRequest(UserRequest userRequest, @MappingTarget UserEntity userEntity);
 }

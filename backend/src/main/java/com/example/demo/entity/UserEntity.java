@@ -29,4 +29,6 @@ public class UserEntity {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<RoleEntity> roles;
+    @Column(nullable = false)
+    private Boolean isActive = true;
 }

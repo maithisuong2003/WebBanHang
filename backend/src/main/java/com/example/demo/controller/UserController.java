@@ -31,13 +31,29 @@ public class UserController {
                 .result(iUserService.getAllUsers())
                 .build();
     }
-    @PostMapping
+    @PostMapping("register")
     public ApiResponse<UserResponse> createUser(@RequestBody UserRequest userRequest){
-         iUserService.createUser(userRequest);
+        UserResponse userResponse = iUserService.createUser(userRequest);
          return ApiResponse.<UserResponse>builder()
                  .code(200)
                  .message("Tao tai khoan thanh cong")
                  .build();
 
+    }
+    @PutMapping("/update/{id}")
+    public ApiResponse<UserResponse> updateUser(@PathVariable Integer id,@RequestBody UserRequest userRequest){
+         UserResponse userResponse = iUserService.updateUser(id,userRequest);
+         return ApiResponse.<UserResponse>builder()
+                 .code(200)
+                 .message("Success")
+                 .build();
+    }
+    @DeleteMapping("/delete/{id}")
+    public ApiResponse<Void> deleteUser(@PathVariable Integer id){
+        iUserService.deleteUser(id);
+        return ApiResponse.<Void>builder()
+                .code(200)
+                .message("Xoa tai khoan thanh cong")
+                .build();
     }
 }
