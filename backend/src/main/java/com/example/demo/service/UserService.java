@@ -4,6 +4,8 @@ import com.example.demo.dto.request.UserRequest;
 import com.example.demo.dto.response.UserResponse;
 import com.example.demo.entity.RoleEntity;
 import com.example.demo.entity.UserEntity;
+import com.example.demo.exception.AppException;
+import com.example.demo.exception.ErrorCode;
 import com.example.demo.mapper.UserMapper;
 import com.example.demo.reponsitories.RoleRepository;
 import com.example.demo.reponsitories.UserRepository;
@@ -26,9 +28,9 @@ public class UserService implements IUserService{
     @Override
     public UserResponse findUserById(Integer id) {
         UserEntity userEntity = userRepository.findById(id)
-                .orElseThrow(()->new RuntimeException("User not exits"));
+                .orElseThrow(()->new AppException(ErrorCode.USER_NOT_FOUND));
         if (!userEntity.getIsActive()) {
-            throw new RuntimeException("User is inactive");
+            throw new AppException(ErrorCode.USER_INACTIVE);
         }
         return userMapper.mapToUserResponse(userEntity);
     }
@@ -36,16 +38,16 @@ public class UserService implements IUserService{
     @Override
     public List<UserResponse> getAllUsers() {
         List<UserEntity> userEntities = userRepository.findAll();
-        userEntities.removeIf(userEntity ->!userEntity.getIsActive() || userEntity.getUserName().equalsIgnoreCase("amdin"));
+        userEntities.removeIf(userEntity ->!userEntity.getIsActive() || userEntity.getUserName().equalsIgnoreCase("admin"));
         return userEntities.stream().map(userMapper::mapToUserResponse).toList();
     }
     @Override
     public UserResponse createUser(UserRequest userRequest) {
         if(userRepository.findByEmail(userRequest.getEmail()).isPresent()){
-            throw new ApplicationContextException("Email da ton tai");
+            throw new AppException(ErrorCode.EMAIL_EXISTED);
         }
         if(userRepository.findByUserName(userRequest.getUserName()).isPresent()){
-            throw new ApplicationContextException("UserName da ton tai");
+            throw new AppException(ErrorCode.USER_EXISTED);
         }
         UserEntity userEntity = userMapper.mapToUserEntity(userRequest);
 //        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -53,25 +55,24 @@ public class UserService implements IUserService{
                 .orElseThrow(() -> new ApplicationContextException("")))));
         userEntity.setIsActive(true);
         userRepository.save(userEntity);
-        userMapper.mapToUserResponse(userEntity);
-        return null;
+        return userMapper.mapToUserResponse(userEntity);
     }
     @Override
     public UserResponse updateUser(Integer id, UserRequest userRequest) {
         UserEntity userEntity = userRepository.findById(id)
-                .orElseThrow(()->new RuntimeException("User not exist"));
+                .orElseThrow(()->new AppException(ErrorCode.USER_NOT_FOUND));
         if (!userEntity.getIsActive()) {
-            throw new RuntimeException("User is inactive");
+            throw new AppException(ErrorCode.USER_INACTIVE);
         }
         userRepository.findByEmail(userRequest.getEmail())
                 .filter(user -> !user.getId().equals(id))
                 .ifPresent(user -> {
-                    throw new ApplicationContextException("Email đã tồn tại!");
+                    throw new AppException(ErrorCode.EMAIL_EXISTED);
                 });
         userRepository.findByUserName(userRequest.getUserName())
                 .filter(user -> !user.getId().equals(id))
                 .ifPresent(user -> {
-                    throw new ApplicationContextException("User nay da ton tai");
+                    throw new AppException(ErrorCode.USER_EXISTED);
                 });
         userMapper.updateUserEntityFromRequest(userRequest,userEntity);
         if (userRequest.getRoleNames() != null && !userRequest.getRoleNames().isEmpty()) {
@@ -88,9 +89,9 @@ public class UserService implements IUserService{
     @Override
     public void deleteUser(Integer id) {
         UserEntity userEntity = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not exist"));
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
         if (!userEntity.getIsActive()) {
-            throw new RuntimeException("User is already inactive");
+            throw new AppException(ErrorCode.USER_ALREADY_INACTIVE);
         }
         userEntity.setIsActive(false);
         userRepository.save(userEntity);
