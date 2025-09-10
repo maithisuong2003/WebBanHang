@@ -11,6 +11,7 @@ public enum ErrorCode {
     USER_EXISTED(1004, "Username already exists"),
     ROLE_NOT_FOUND(1005, "Role not found"),
     USER_ALREADY_INACTIVE(1006, "User is already inactive"),
+    UNAUTHENTICATED(1011, "Unauthenticated")
     ;
     private int code;
     private String message;
