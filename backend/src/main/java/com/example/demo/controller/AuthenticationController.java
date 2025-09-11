@@ -8,6 +8,9 @@ import com.example.demo.dto.response.IntrospectResponse;
 import com.example.demo.service.AuthenticationService;
 import com.nimbusds.jose.JOSEException;
 import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,28 +20,27 @@ import java.text.ParseException;
 
 @RestController
 @RequestMapping("/auth")
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE,makeFinal = true)
 public class AuthenticationController {
-
-    @Autowired
     private AuthenticationService authenticationService;
-
     @PostMapping("/login")
-    public ApiResponse<AuthenticationResponse> login(@RequestBody AuthenticationRequest authenticationRequest) {
-        var authResult = authenticationService.authenticate(authenticationRequest);
+    public ApiResponse<AuthenticationResponse> login (@RequestBody AuthenticationRequest authenticationRequest){
+        var result = authenticationService.authenticate(authenticationRequest);
         return ApiResponse.<AuthenticationResponse>builder()
-                .message("Login successful!")
-                .result(authResult)
-                .build();
-    }
-
-    @PostMapping("/introspect")
-    public ApiResponse<IntrospectResponse> introspect(@RequestBody IntrospectRequest request)
-            throws JOSEException, ParseException {
-        var result = authenticationService.introspect(request);
-        return ApiResponse.<IntrospectResponse>builder()
-                .message("Introspect successful!")
+                .message("Login successful")
                 .result(result)
                 .build();
-
     }
+    @PostMapping("/introspect")
+    public ApiResponse<IntrospectResponse> introspect (@RequestBody IntrospectRequest request)
+    throws ParseException, JOSEException {
+        var result = authenticationService.introspect(request);
+        return ApiResponse.<IntrospectResponse>builder()
+                .message("Login successful")
+                .result(result)
+                .build();
+    }
+
+
 }

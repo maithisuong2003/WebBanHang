@@ -19,3 +19,4 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
 SIGNER_KEY: "1TjXchw5FloESb63Kc+DFhTARvpWL4jUGCwfGWxuG5SIf/1y/LgJxHnMqaF6A/ij"
+

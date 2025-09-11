@@ -17,6 +17,7 @@ public enum ErrorCode {
     UNAUTHORIZED(107, "You do not have permission",HttpStatus.FORBIDDEN),
     PERMISSION_NOT_EXITED(1020, "Permission Not Exited", HttpStatus.NOT_FOUND),
     ROLE_NOT_EXITED(1008, "Role Not Found", HttpStatus.NOT_FOUND),
+
     ;
     private int code;
     private String message;
