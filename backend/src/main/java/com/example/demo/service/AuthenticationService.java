@@ -58,7 +58,7 @@ public class AuthenticationService {
                 .issuer("MitShop.com")
                 .issueTime(new Date())
                 .expirationTime(new Date(
-                        Instant.now().plus(5, ChronoUnit.MINUTES).toEpochMilli()
+                        Instant.now().plus(60, ChronoUnit.MINUTES).toEpochMilli()
                 ))
                 .claim("id", username.getId())
 //                .claim("scope", buildScope(account))

@@ -45,11 +45,11 @@ public class UserService implements IUserService{
     }
     @Override
     public UserResponse createUser(UserRequest userRequest) {
-        if(userRepository.findByEmail(userRequest.getEmail()).isPresent()){
-            throw new AppException(ErrorCode.EMAIL_EXISTED);
-        }
         if(userRepository.findByUserName(userRequest.getUserName()).isPresent()){
             throw new AppException(ErrorCode.USER_EXISTED);
+        }
+        if(userRepository.findByEmail(userRequest.getEmail()).isPresent()){
+            throw new AppException(ErrorCode.EMAIL_EXISTED);
         }
         UserEntity userEntity = userMapper.mapToUserEntity(userRequest);
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
