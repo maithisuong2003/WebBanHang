@@ -12,7 +12,8 @@ import com.example.demo.reponsitories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationContextException;
 import org.springframework.stereotype.Service;
-
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -50,7 +51,8 @@ public class UserService implements IUserService{
             throw new AppException(ErrorCode.USER_EXISTED);
         }
         UserEntity userEntity = userMapper.mapToUserEntity(userRequest);
-//        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
+        userEntity.setPassword(passwordEncoder.encode(userRequest.getPassword()));
         userEntity.setRoles(new HashSet<>(Collections.singletonList(roleRepository.findByName(PredefinedRole.USER_ROLE)
                 .orElseThrow(() -> new ApplicationContextException("")))));
         userEntity.setIsActive(true);
