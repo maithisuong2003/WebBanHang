@@ -36,12 +36,11 @@ dependencies {
 	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2'
 	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.2'
 	implementation 'org.modelmapper:modelmapper:3.1.1'
-	// Chưa cần bảo mật thì KHÔNG thêm dòng security
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'com.fasterxml.uuid:java-uuid-generator:4.3.0'
-	// Nếu chưa dùng OAuth2 thì cũng có thể comment 2 dòng dưới cho chắc chắn:
-	// implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
-	// implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 	implementation 'com.paypal.sdk:rest-api-sdk:1.14.0'
 	implementation 'com.paypal.sdk:paypal-core:1.7.2'
 	implementation 'com.twelvemonkeys.imageio:imageio-webp:3.8.1'
