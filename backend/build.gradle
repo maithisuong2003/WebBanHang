@@ -38,10 +38,10 @@ dependencies {
 	implementation 'org.modelmapper:modelmapper:3.1.1'
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
-	implementation 'org.springframework.security:spring-security-crypto:6.2.3'
 	implementation 'com.fasterxml.uuid:java-uuid-generator:4.3.0'
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
-//	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+
 	implementation 'com.paypal.sdk:rest-api-sdk:1.14.0'
 	implementation 'com.paypal.sdk:paypal-core:1.7.2'
 	implementation 'com.twelvemonkeys.imageio:imageio-webp:3.8.1'
