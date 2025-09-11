@@ -15,6 +15,7 @@ public enum ErrorCode {
     USER_ALREADY_INACTIVE(1006, "User is already inactive",HttpStatus.BAD_REQUEST),
     UNAUTHENTICATED(1011, "Unauthenticated",HttpStatus.UNAUTHORIZED),
     UNAUTHORIZED(107, "You do not have permission",HttpStatus.FORBIDDEN)
+
     ;
     private int code;
     private String message;
