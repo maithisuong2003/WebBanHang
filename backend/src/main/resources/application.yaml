@@ -18,5 +18,5 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
+SIGNER_KEY: "1TjXchw5FloESb63Kc+DFhTARvpWL4jUGCwfGWxuG5SIf/1y/LgJxHnMqaF6A/ij"
 
-SIGNER_KEY: Ls0Xqw3hOsUSFeHJ6QQNFtsFXmbcIpCay4gqTORtO89WHZyOYgdnSs0aiQKe2otd

@@ -1,5 +1,7 @@
 package com.example.demo.dto.request;
 
+import java.util.Set;
+
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -8,9 +10,8 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class AuthenticationRequest {
-    String userName;
-    String password;
-
+public class RoleRequest {
+    String name;
+    String description;
+    Set<String> permissions;
 }
-
