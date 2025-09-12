@@ -35,7 +35,7 @@ public class UserController {
                 .result(iUserService.getAllUsers())
                 .build();
     }
-    @PostMapping("register")
+/*    @PostMapping("register")
     public ApiResponse<UserResponse> createUser(@RequestBody UserRequest userRequest){
         UserResponse userResponse = iUserService.createUser(userRequest);
          return ApiResponse.<UserResponse>builder()
@@ -43,7 +43,24 @@ public class UserController {
                  .message("Tao tai khoan thanh cong")
                  .build();
 
+    }*/
+@PostMapping("register")
+public ApiResponse<UserResponse> createUser(@RequestBody UserRequest userRequest){
+    try {
+        UserResponse userResponse = iUserService.createUser(userRequest);
+        return ApiResponse.<UserResponse>builder()
+                .code(200)
+                .message("Tao tai khoan thanh cong")
+                .result(userResponse)
+                .build();
+    } catch (Exception e) {
+        e.printStackTrace(); // hoặc log.error("Register error", e);
+        return ApiResponse.<UserResponse>builder()
+                .code(9999)
+                .message(e.getMessage())
+                .build();
     }
+}
     @PutMapping("/update/{id}")
     @PreAuthorize("hasAuthority('USER_PUT')")
     public ApiResponse<UserResponse> updateUser(@PathVariable Integer id,@RequestBody UserRequest userRequest){
