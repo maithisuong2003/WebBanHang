@@ -14,17 +14,21 @@ public class ProductEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String name;
+    private String nameProduct;
     private String description;
     private double price;
     private String imageUrl;
-
     private Boolean isActive;
     private Boolean isDelete;
 
     @Enumerated(EnumType.STRING)
     private ProductStatus status;
-
+    @ManyToOne
+    @JoinColumn(name="supplier_id")
+    private SupplierEntity supplierEntity;
+    @ManyToOne
+    @JoinColumn(name="producer_id")
+    private ProducerEntity producerEntity;
     @ManyToOne
     @JoinColumn(name="category_id")
     private CategoryEntity categoryEntity;

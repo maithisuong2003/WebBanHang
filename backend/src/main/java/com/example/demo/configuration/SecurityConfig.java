@@ -27,7 +27,9 @@ import javax.crypto.spec.SecretKeySpec;
 public class SecurityConfig {
     private final String[] PUBLIC_ENDPOINTS = {
             "/users/register", "auth/login","/auth/introspect","/auth/logout","auth/refresh", "/categories/all",
-            "/categories/{id}",
+            "/categories/{id}","products/all","products/{id}","products/create",
+            "/products/update/{id}","/products/delete/{id}","/products/search/{nameProduct}",
+            "/products"
     };
     @Value("${SIGNER_KEY}")
     private String signerKey;
