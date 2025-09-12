@@ -18,6 +18,7 @@ public enum ErrorCode {
     PERMISSION_NOT_EXITED(1020, "Permission Not Exited", HttpStatus.NOT_FOUND),
     ROLE_NOT_EXITED(1008, "Role Not Found", HttpStatus.NOT_FOUND),
     INVALID_TOKEN(1009, "Invalid Token", HttpStatus.BAD_REQUEST),
+    PASSWORD_NOT_MATCHED(1012, "Incorrect Password", HttpStatus.BAD_REQUEST),
     ;
     private int code;
     private String message;
