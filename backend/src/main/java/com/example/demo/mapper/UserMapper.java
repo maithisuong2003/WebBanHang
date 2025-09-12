@@ -21,5 +21,6 @@ public interface UserMapper {
                 .collect(Collectors.toSet());
     }
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mapping(target = "roles", ignore = true)
     void updateUserEntityFromRequest(UserRequest userRequest, @MappingTarget UserEntity userEntity);
 }
