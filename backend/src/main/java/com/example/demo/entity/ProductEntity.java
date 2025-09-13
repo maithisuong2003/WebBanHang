@@ -32,4 +32,13 @@ public class ProductEntity {
     @ManyToOne
     @JoinColumn(name="category_id")
     private CategoryEntity categoryEntity;
+    @OneToOne(mappedBy = "productEntity", cascade = CascadeType.ALL)
+    private InventoryEntity inventoryEntity;
+    @Column(nullable = false)
+    private Double discount = 0.0; // Thêm trường này
+
+    // Hàm tính giá sau giảm
+    public double getDiscountPrice() {
+        return price - (price * discount / 100);
+    }
 }
