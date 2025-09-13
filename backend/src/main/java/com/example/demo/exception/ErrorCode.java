@@ -35,12 +35,13 @@ public enum ErrorCode {
     SIZE_COLOR_PRODUCT_NOT_FOUND(1022, "Size Color Product Not Found", HttpStatus.NOT_FOUND),
     RATE_NOT_EXITED(1023, "Rate Not Exited", HttpStatus.NOT_FOUND),
     RATE_EDIT_LIMIT(1024, "Rate Edit Limit", HttpStatus.BAD_REQUEST),
-    ACCOUNT_NOT_FOUND(1003, "Tài khoản không tồn tại",HttpStatus.BAD_REQUEST),
 
     PROMOTION_ALREADY_SAVED(1003, "Tài khoản không tồn tại",HttpStatus.BAD_REQUEST),
     CATEGORY_NOT_FOUND(1020,"Category không tồn tại" ,HttpStatus.BAD_REQUEST ),
-    SUPPLIER_NOT_FOUND(1020,"Suplier không tồn tại" ,HttpStatus.BAD_REQUEST ),
-    PRODUCER_NOT_FOUND(1020,"Producer không tồn tại" ,HttpStatus.BAD_REQUEST );
+    SUPPLIER_NOT_FOUND(1021,"Suplier không tồn tại" ,HttpStatus.BAD_REQUEST ),
+    INVENTORY_NOT_FOUND(1023,"Inventory not found ",HttpStatus.BAD_REQUEST),
+    PRODUCER_NOT_FOUND(1022,"Producer không tồn tại" ,HttpStatus.BAD_REQUEST ),
+    NOT_ENOUGH_QUANTITY(1024,"Not enough quantity ",HttpStatus.BAD_REQUEST),
 
 
     ;
