@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import "../assets/login.css";
+import {API_BASE_URL} from "../service/AuthService";
 
 const Login = () => {
   const [showPass, setShowPass] = useState(false);
@@ -19,7 +20,9 @@ const Login = () => {
       setError("Sai tài khoản hoặc mật khẩu!");
     }
   };
-
+  const handleGoogleLogin = () => {
+    window.location.href = `${API_BASE_URL}/oauth2/authorization/google`;
+  };
   return (
       <div className="login-bg">
         <div className="login-container">
@@ -77,7 +80,7 @@ const Login = () => {
             </button>
             <div className="login-divider">or continue with</div>
             <div className="login-socials">
-              <button type="button" className="social-btn">
+              <button type="button" className="social-btn" onClick={handleGoogleLogin}>
                 <img src="https://img.icons8.com/color/24/000000/google-logo.png" alt="Google"/>
                 Google
               </button>
