@@ -8,23 +8,27 @@ import './assets/css/owl.carousel.min.css';
 import './assets/css/slicknav.min.css';
 import './assets/css/style.css';
 
-import Home from "./page/home";
-import Shop from "./page/shop";
+import Home from "./client/page/home";
+import Shop from "./client/page/shop";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Blog from "./page/blog";
-import Contact from "./page/contact";
+import Blog from "./client/page/blog";
+import Contact from "./client/page/contact";
+import Login from "./client/page/login";
+import {AuthProvider} from "./client/context/AuthContext";
 
 function App() {
     return (
         <BrowserRouter>
+            <AuthProvider>
             <Routes>
+                <Route path="/login" element={<Login />} />
                 <Route path="/" element={<Home />} />
                 <Route path="/shop" element={<Shop/>} />
                 <Route path="/blog" element={<Blog/>}/>
                 <Route path="/contact" element={<Contact/>}/>
-
             </Routes>
+            </AuthProvider>
         </BrowserRouter>
     );
 }
