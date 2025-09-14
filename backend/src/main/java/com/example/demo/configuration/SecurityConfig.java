@@ -32,7 +32,8 @@ public class SecurityConfig {
             "/users/register", "auth/login","/auth/introspect","/auth/logout","auth/refresh", "/categories/all",
             "/categories/{id}","products/all","products/{id}","products/create",
             "/products/update/{id}","/products/delete/{id}","/products/search/{nameProduct}",
-            "/products"
+            "/products",
+            "/oauth2/**", "/login/**"
     };
     @Value("${SIGNER_KEY}")
     private String signerKey;
@@ -41,13 +42,24 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                .cors(cors -> cors.configurationSource(corsConfigurationSource())) // Thêm dòng này
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(request ->
                         request.requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS).permitAll()
                                 .requestMatchers(HttpMethod.GET, PUBLIC_ENDPOINTS).permitAll()
                                 .requestMatchers(HttpMethod.PUT, PUBLIC_ENDPOINTS).permitAll()
                                 .requestMatchers(HttpMethod.DELETE, PUBLIC_ENDPOINTS).permitAll()
                                 .anyRequest().authenticated()
+                )
+                .oauth2ResourceServer(oauth2 ->
+                        oauth2.jwt(jwtConfigurer -> jwtConfigurer
+                                        .decoder(customJwtDecoder)
+                                        .jwtAuthenticationConverter(jwtAuthenticationConverter()))
+                                .authenticationEntryPoint(new JwtAuthenticationEntryPoint())
+                )
+                .oauth2Login(oauth2Login ->
+                        oauth2Login
+                                .loginPage("/login")
+                                .defaultSuccessUrl("/")
                 )
                 .oauth2ResourceServer(oauth2 ->
                         oauth2.jwt(jwtConfigurer -> jwtConfigurer

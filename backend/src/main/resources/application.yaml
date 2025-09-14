@@ -18,5 +18,20 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
-SIGNER_KEY: "1TjXchw5FloESb63Kc+DFhTARvpWL4jUGCwfGWxuG5SIf/1y/LgJxHnMqaF6A/ij"
 
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 166908237378-qnv1fjh97j28agvadnad2ajnhufhrbsk.apps.googleusercontent.com
+            client-secret: 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
+            scope: profile, email
+            redirect-uri: "/login/oauth2/code/google"
+          facebook:
+            client-id: 1562454040935985
+            client-secret: 50d9c75f03a9c5130e6517ef38c976a4
+            scope: email, public_profile
+            redirect-uri: "/login/oauth2/code/facebook"
+
+SIGNER_KEY: "1TjXchw5FloESb63Kc+DFhTARvpWL4jUGCwfGWxuG5SIf/1y/LgJxHnMqaF6A/ij"
