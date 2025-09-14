@@ -8,7 +8,7 @@ import './assets/css/owl.carousel.min.css';
 import './assets/css/slicknav.min.css';
 import './assets/css/style.css';
 
-import Index from "./page/index";
+import Home from "./page/home";
 import Shop from "./page/shop";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -19,7 +19,7 @@ function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<Index />} />
+                <Route path="/" element={<Home />} />
                 <Route path="/shop" element={<Shop/>} />
                 <Route path="/blog" element={<Blog/>}/>
                 <Route path="/contact" element={<Contact/>}/>
