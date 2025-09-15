@@ -14,7 +14,7 @@ public class ProductDto {
     private SupplierEntity supplierEntity;
     private ProducerEntity producerEntity;
     private CategoryEntity categoryEntity;
-    private String imageProductEntity;
+    private String imageUrl;
     private List<RateEntity> ratesEntity;
     private List<ImportCouponDetailEntity> importCouponDetailsEntity;
     private List<OrderDetailEntity> orderDetailsEntity;

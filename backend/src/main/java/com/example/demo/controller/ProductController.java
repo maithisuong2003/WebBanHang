@@ -99,7 +99,6 @@ public class ProductController {
         filter.setCategories(categories);
         filter.setSortBy(sortBy);
         filter.setSortDirection(sortDirection);
-
         Sort sort = sortDirection.equalsIgnoreCase("ASC") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
         Pageable pageable = PageRequest.of(page, size, sort);
 

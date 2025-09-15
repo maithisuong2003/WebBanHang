@@ -118,7 +118,7 @@ const Header = () => {
           <div className="col-lg-6">
             <nav className="header__menu">
               <ul>
-                <li className="active"><a href="">Home</a></li>
+                <li className="active"><a href="./">Home</a></li>
                 <li><a href="./shop">Shop</a></li>
                 <li><a href="#">Pages</a>
                   <ul className="header__menu__dropdown">
