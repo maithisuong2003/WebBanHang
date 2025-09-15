@@ -3,7 +3,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import {API_BASE_URL} from "../service/ProductService";
 import axios from "axios";
-
+import Swal from "sweetalert2";
 const ShopGrid = () => {
   const [products, setProducts] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
@@ -15,6 +15,8 @@ const ShopGrid = () => {
   const [minPrice, setMinPrice] = useState();
   const [maxPrice, setMaxPrice] = useState();
   const [sortOption, setSortOption] = useState('id:asc');
+  const token = localStorage.getItem('token');
+  const user = JSON.parse(localStorage.getItem('user'));
 
   useEffect(() => {
     console.log({
@@ -47,6 +49,21 @@ const ShopGrid = () => {
   const handlePageChange = (page) => setCurrentPage(page);
   const handleSortChange = (e) => {
     setSortOption(e.target.value);
+  };
+
+  const handleAddToCart = (product) => {
+    axios.post(`${API_BASE_URL}/carts/add-item`,
+    { productId: product.id,
+      quantity: 1,
+      userId: user.id},
+    { headers: { Authorization: `Bearer ${token}` }
+    })
+        .then(res => {
+          Swal.fire('Thành công!', 'Sản phẩm đã được thêm vào giỏ hàng.', 'success');
+        })
+        .catch(err => {
+          Swal.fire('Lỗi!', 'Vui lòng đăng nhập hoặc thử lại.', 'error');
+        });
   };
   return (
   <>
@@ -113,7 +130,7 @@ const ShopGrid = () => {
             <div className="breadcrumb__text">
               <h2>Organi Shop</h2>
               <div className="breadcrumb__option">
-                <a href="./index.html">Home</a>
+                <a href="./">Home</a>
                 <span>Shop</span>
               </div>
             </div>
@@ -274,18 +291,21 @@ const ShopGrid = () => {
                   <div className="col-lg-4 col-md-6 col-sm-6" key={product.id}>
                   <div className="product__item">
                       <div className="product__item__pic set-bg" data-setbg="">
-                        <img src={product.image} alt={product.name} style={{width: "100%"}}/>
-                        <ul className="product__item__pic__hover">
-                          <li><a href="#"><i className="fa fa-heart"></i></a></li>
-                          <li><a href="#"><i className="fa fa-retweet"></i></a></li>
-                          <li><a href="#"><i className="fa fa-shopping-cart"></i></a></li>
-                        </ul>
+                        <img src={product.imageUrl} alt={product.imageUrl} style={{width: "100%"}}/>
+
                       </div>
-                      <div className="product__item__text">
-                        <h6><a href="#">{product.nameProduct}</a></h6>
-                        <h5>{product.price}</h5>
-                      </div>
+                    <div className="product__item__text">
+                      <h6><a href="#">{product.nameProduct}</a></h6>
+                      <h5>{product.price}</h5>
+                      <button
+                          className="btn btn-success mt-2"
+                          style={{width: '50%',backgroundColor:'#7fad39'}}
+                           onClick={() => handleAddToCart(product)}
+                      >
+                        <i className="fa fa-shopping-cart" ></i> Mua ngay
+                      </button>
                     </div>
+                  </div>
                   </div>
               ))}
             </div>

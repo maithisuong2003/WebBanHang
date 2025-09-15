@@ -94,7 +94,7 @@ public class ProductService implements IProductService {
         productEntity.setNameProduct(updateProduct.getNameProduct());
         productEntity.setDescription(updateProduct.getDescription());
         productEntity.setPrice(updateProduct.getPrice());
-        productEntity.setImageUrl(updateProduct.getImageProductEntity());
+        productEntity.setImageUrl(updateProduct.getImageUrl());
 
         if (updateProduct.getCategoryEntity() != null && updateProduct.getCategoryEntity().getId() != null) {
             CategoryEntity category = categoryRepository.findById(updateProduct.getCategoryEntity().getId())
