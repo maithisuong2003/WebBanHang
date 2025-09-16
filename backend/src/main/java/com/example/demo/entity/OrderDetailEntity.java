@@ -1,25 +1,28 @@
 package com.example.demo.entity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
+
 @Entity
-@Table(name = "OrderDetail")
+@Table(name = "order_details")
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class OrderDetailEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "order_id")
-    private OrderEntity order;
+    @JsonBackReference
+    @JoinColumn(name = "id_order", nullable = false)
+    private OrderEntity orderEntity;
 
     @ManyToOne
-    @JoinColumn(name = "product_id")
-    private ProductEntity product;
+    @JoinColumn(name = "id_product", nullable = false)
+    private ProductEntity productEntity;
 
     private Integer quantity;
+
     private Double price;
+
 }
