@@ -1,36 +1,35 @@
-// ShopingCart.jsx
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Header from "../components/Header";
-
-const cartData = [
-    {
-        id: 1,
-        name: "Vegetable’s Package",
-        img: "img/cart/cart-1.jpg",
-        price: 55.0,
-        quantity: 1,
-        total: 110.0,
-    },
-    {
-        id: 2,
-        name: "Fresh Garden Vegetable",
-        img: "img/cart/cart-2.jpg",
-        price: 39.0,
-        quantity: 1,
-        total: 39.99,
-    },
-    {
-        id: 3,
-        name: "Organic Bananas",
-        img: "img/cart/cart-3.jpg",
-        price: 69.0,
-        quantity: 1,
-        total: 69.99,
-    },
-];
+import {API_BASE_URL} from "../service/AuthService";
+import axios from "axios";
+import Footer from "../components/Footer";
+import {useNavigate} from "react-router-dom";
 
 const ShopingCart = () => {
-    // Bạn có thể dùng useState để quản lý cart thực tế
+    const [cartItems, setCartItems] = useState([]);
+    const token = localStorage.getItem('token');
+    const [cart, setCart] = useState(null);
+    const navigate = useNavigate();
+    useEffect(() => {
+        if (!token) {
+            navigate("/login");
+            return;
+        }
+        axios.get(`${API_BASE_URL}/carts/my-cart`, {
+            headers: {
+                 Authorization: `Bearer ${token}`
+            }
+        })
+            .then(res => {
+                if(res.data && res.data.result) {
+                    setCart(res.data.result);
+                    setCartItems(res.data.result.cartItems || []);
+                }
+            })
+            .catch(err => {
+                console.error("Error fetching cart:", err);
+            });
+    }, []);
     return (
         <div>
             <Header/>
@@ -71,14 +70,14 @@ const ShopingCart = () => {
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    {cartData.map((item) => (
+                                    {cartItems && cartItems.length > 0 ? cartItems.map(item => (
                                         <tr key={item.id}>
                                             <td className="shoping__cart__item">
-                                                <img src={item.img} alt="" />
-                                                <h5>{item.name}</h5>
+                                                <img src={item.productEntity.imageUrl} alt=""/>
+                                                <h5>{item.productEntity.nameProduct}</h5>
                                             </td>
                                             <td className="shoping__cart__price">
-                                                ${item.price.toFixed(2)}
+                                                {item.price?.toLocaleString()} đ
                                             </td>
                                             <td className="shoping__cart__quantity">
                                                 <div className="quantity">
@@ -92,13 +91,17 @@ const ShopingCart = () => {
                                                 </div>
                                             </td>
                                             <td className="shoping__cart__total">
-                                                ${item.total.toFixed(2)}
+                                                {(item.price * item.quantity)?.toLocaleString()} đ
                                             </td>
                                             <td className="shoping__cart__item__close">
                                                 <span className="icon_close"></span>
                                             </td>
                                         </tr>
-                                    ))}
+                                    )) : (
+                                        <tr>
+                                            <td colSpan={5}>Không có sản phẩm nào trong giỏ hàng.</td>
+                                        </tr>
+                                    )}
                                     </tbody>
                                 </table>
                             </div>
@@ -107,7 +110,7 @@ const ShopingCart = () => {
                     <div className="row">
                         <div className="col-lg-12">
                             <div className="shoping__cart__btns">
-                                <a href="#" className="primary-btn cart-btn">
+                                <a href="/shop" className="primary-btn cart-btn">
                                     CONTINUE SHOPPING
                                 </a>
                                 <a href="#" className="primary-btn cart-btn cart-btn-right">
@@ -120,7 +123,7 @@ const ShopingCart = () => {
                                 <div className="shoping__discount">
                                     <h5>Discount Codes</h5>
                                     <form action="#">
-                                        <input
+                                    <input
                                             type="text"
                                             placeholder="Enter your coupon code"
                                         />
@@ -139,19 +142,19 @@ const ShopingCart = () => {
                                         Subtotal <span>$454.98</span>
                                     </li>
                                     <li>
-                                        Total <span>$454.98</span>
+                                        Tổng tiền: <span>{cart?.totalPrice?.toLocaleString()} đ</span>
                                     </li>
                                 </ul>
-                                <a href="#" className="primary-btn">
-                                    PROCEED TO CHECKOUT
+                                <a href="/checkout" className="primary-btn">
+                                PROCEED TO CHECKOUT
                                 </a>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
+            <Footer/>
 
-            {/* Footer... (Bạn có thể tách riêng file Footer.jsx nếu đã có) */}
         </div>
     );
 };
