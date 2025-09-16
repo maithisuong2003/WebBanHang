@@ -20,6 +20,7 @@ import Register from "./client/page/register";
 import ShopDetails from "./client/page/shopDetail";
 import Cart from "./client/page/cart";
 import Checkout from "./client/page/checkout";
+import Ordered from "./client/page/ordered";
 
 function App() {
     return (
@@ -36,6 +37,8 @@ function App() {
                 <Route path="/checkout" element={<Checkout />} />
                 <Route path="/blog" element={<Blog/>}/>
                 <Route path="/contact" element={<Contact/>}/>
+                <Route path="/order" element={<Ordered/>}/>
+
             </Routes>
             </AuthProvider>
         </BrowserRouter>

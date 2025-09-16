@@ -7,6 +7,8 @@ import com.example.demo.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/orders")
@@ -20,6 +22,14 @@ public class OrderController {
         return ApiResponse.<OrderResponse>builder()
                 .code(200)
                 .result(orderResponse)
+                .build();
+    }
+    @GetMapping("/my-order")
+    public ApiResponse<List<OrderResponse>> getMyOrder(){
+        List<OrderResponse> list = iorderService.getOrders();
+        return ApiResponse.<List<OrderResponse>>builder()
+                .code(200)
+                .result(list)
                 .build();
     }
 }

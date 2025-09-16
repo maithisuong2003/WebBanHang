@@ -55,7 +55,7 @@ const Checkout = () => {
                 }
             });
             alert("Đặt hàng thành công!");
-            navigate("/orders");
+            navigate("/order");
         } catch (err) {
             alert("Đặt hàng thất bại: " + (err.response?.data?.message || err.message));
         }
