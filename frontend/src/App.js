@@ -17,6 +17,8 @@ import Contact from "./client/page/contact";
 import Login from "./client/page/login";
 import {AuthProvider} from "./client/context/AuthContext";
 import Register from "./client/page/register";
+import ShopDetails from "./client/page/shopDetail";
+import Cart from "./client/page/cart";
 
 function App() {
     return (
@@ -27,6 +29,9 @@ function App() {
                 <Route path="register" element={<Register/>}/>
                 <Route path="/" element={<Home />} />
                 <Route path="/shop" element={<Shop/>} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/shopDetail/:id" element={<ShopDetails />} />
+                <Route path="/cart" element={<Cart />} />
                 <Route path="/blog" element={<Blog/>}/>
                 <Route path="/contact" element={<Contact/>}/>
             </Routes>

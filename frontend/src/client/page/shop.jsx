@@ -4,6 +4,7 @@ import Footer from "../components/Footer";
 import {API_BASE_URL} from "../service/ProductService";
 import axios from "axios";
 import Swal from "sweetalert2";
+import {useNavigate} from "react-router-dom";
 const ShopGrid = () => {
   const [products, setProducts] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
@@ -17,7 +18,7 @@ const ShopGrid = () => {
   const [sortOption, setSortOption] = useState('id:asc');
   const token = localStorage.getItem('token');
   const user = JSON.parse(localStorage.getItem('user'));
-
+  const navigate  = useNavigate();
   useEffect(() => {
     console.log({
       page: currentPage - 1,
@@ -289,13 +290,13 @@ const ShopGrid = () => {
             <div className="row">
               {products.map(product => (
                   <div className="col-lg-4 col-md-6 col-sm-6" key={product.id}>
-                  <div className="product__item">
-                      <div className="product__item__pic set-bg" data-setbg="">
+                  <div className="product__item" >
+                      <div className="product__item__pic set-bg" onClick={() => navigate(`/shopDetail/${product.id}`)}>
                         <img src={product.imageUrl} alt={product.imageUrl} style={{width: "100%"}}/>
 
                       </div>
                     <div className="product__item__text">
-                      <h6><a href="#">{product.nameProduct}</a></h6>
+                      <h6 onClick={() => navigate(`/shopDetail/${product.id}`)}>{product.nameProduct}</h6>
                       <h5>{product.price}</h5>
                       <button
                           className="btn btn-success mt-2"
