@@ -11,16 +11,6 @@ const Header = () => {
       <div className="humberger__menu__logo">
         <a href="#"><img src="img/logo.png" alt=""/></a>
       </div>
-      <div className="humberger__menu__cart">
-        <ul>
-         <li>
-            <Link to="/cart">
-              <i className="fa fa-shopping-bag"></i> <span>3</span>
-            </Link>
-          </li>
-        </ul>
-        <div className="header__cart__price">item: <span>$150.00</span></div>
-      </div>
       <div className="humberger__menu__widget">
         <div className="header__top__right__language">
           <img src="img/language.png" alt=""/>
@@ -141,7 +131,9 @@ const Header = () => {
             <div className="header__cart">
               <ul>
                 <li><a href="#"><i className="fa fa-heart"></i> <span>1</span></a></li>
-                <li><a href="#"><i className="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                <Link to="/cart">
+                  <i className="fa fa-shopping-bag"></i> <span>3</span>
+                </Link>
               </ul>
               <div className="header__cart__price">item: <span>$150.00</span></div>
             </div>

@@ -19,6 +19,7 @@ import {AuthProvider} from "./client/context/AuthContext";
 import Register from "./client/page/register";
 import ShopDetails from "./client/page/shopDetail";
 import Cart from "./client/page/cart";
+import Checkout from "./client/page/checkout";
 
 function App() {
     return (
@@ -32,6 +33,7 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/shopDetail/:id" element={<ShopDetails />} />
                 <Route path="/cart" element={<Cart />} />
+                <Route path="/checkout" element={<Checkout />} />
                 <Route path="/blog" element={<Blog/>}/>
                 <Route path="/contact" element={<Contact/>}/>
             </Routes>
