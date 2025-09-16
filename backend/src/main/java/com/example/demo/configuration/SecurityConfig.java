@@ -33,7 +33,7 @@ public class SecurityConfig {
             "/categories/{id}","products/all","products/{id}","products/create",
             "/products/update/{id}","/products/delete/{id}","/products/search/{nameProduct}",
             "/products",
-            "/oauth2/**", "/login/**"
+            "/oauth2/**", "/login/**","/orders"
     };
     @Value("${SIGNER_KEY}")
     private String signerKey;

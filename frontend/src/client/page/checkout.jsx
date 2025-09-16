@@ -9,7 +9,13 @@ const Checkout = () => {
     const [cartItems, setCartItems] = useState([]);
     const token = localStorage.getItem('token');
     const [cart, setCart] = useState(null);
+    const [address, setAddress] = useState("");
+    const [note, setNote] = useState("");
+    const [sale, setSale] = useState("");
+    const [deliveryAt, setDeliveryAt] = useState("");
+    const [paymentMethod, setPaymentMethod] = useState("cod");
     const navigate = useNavigate();
+
     useEffect(() => {
         if (!token) {
             navigate("/login");
@@ -30,6 +36,31 @@ const Checkout = () => {
                 console.error("Error fetching cart:", err);
             });
     }, []);
+
+    const handlePlaceOrder = async (e) => {
+        e.preventDefault();
+        const statusPay = paymentMethod === "cod" ? "Chưa thanh toán" : "Đã thanh toán";
+        try {
+            const orderRequest = {
+                address,
+                note,
+                sale,
+                statusPay,
+                deliveryAt: deliveryAt ? new Date(deliveryAt).toISOString() : null
+            };
+            const response = await axios.post(`${API_BASE_URL}/orders`, orderRequest, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            alert("Đặt hàng thành công!");
+            navigate("/orders");
+        } catch (err) {
+            alert("Đặt hàng thất bại: " + (err.response?.data?.message || err.message));
+        }
+    };
+
     return (
         <div>
             <Header />
@@ -51,7 +82,6 @@ const Checkout = () => {
                     </div>
                 </div>
             </section>
-
             {/* Checkout Section */}
             <section className="checkout spad">
                 <div className="container">
@@ -65,83 +95,51 @@ const Checkout = () => {
                     </div>
                     <div className="checkout__form">
                         <h4>Billing Details</h4>
-                        <form>
+                        <form onSubmit={handlePlaceOrder}>
                             <div className="row">
                                 <div className="col-lg-8 col-md-6">
-                                    <div className="row">
-                                        <div className="col-lg-6">
-                                            <div className="checkout__input">
-                                                <p>First Name<span>*</span></p>
-                                                <input type="text" />
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-6">
-                                            <div className="checkout__input">
-                                                <p>Last Name<span>*</span></p>
-                                                <input type="text" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="checkout__input">
-                                        <p>Country<span>*</span></p>
-                                        <input type="text" />
-                                    </div>
                                     <div className="checkout__input">
                                         <p>Address<span>*</span></p>
-                                        <input type="text" placeholder="Street Address" className="checkout__input__add" />
-                                        <input type="text" placeholder="Apartment, suite, unite ect (optional)" />
+                                        <input
+                                            type="text"
+                                            placeholder="Street Address"
+                                            value={address}
+                                            onChange={e => setAddress(e.target.value)}
+                                            required
+                                        />
                                     </div>
                                     <div className="checkout__input">
-                                        <p>Town/City<span>*</span></p>
-                                        <input type="text" />
+                                        <p>Order notes</p>
+                                        <input
+                                            type="text"
+                                            placeholder="Notes about your order, e.g. special notes for delivery."
+                                            value={note}
+                                            onChange={e => setNote(e.target.value)}
+                                        />
                                     </div>
                                     <div className="checkout__input">
-                                        <p>Country/State<span>*</span></p>
-                                        <input type="text" />
+                                        <p>Coupon code</p>
+                                        <input
+                                            type="text"
+                                            placeholder="Enter coupon code"
+                                            value={sale}
+                                            onChange={e => setSale(e.target.value)}
+                                        />
                                     </div>
                                     <div className="checkout__input">
-                                        <p>Postcode / ZIP<span>*</span></p>
-                                        <input type="text" />
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-lg-6">
-                                            <div className="checkout__input">
-                                                <p>Phone<span>*</span></p>
-                                                <input type="text" />
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-6">
-                                            <div className="checkout__input">
-                                                <p>Email<span>*</span></p>
-                                                <input type="text" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="checkout__input__checkbox">
-                                        <label htmlFor="acc">
-                                            Create an account?
-                                            <input type="checkbox" id="acc" />
-                                            <span className="checkmark"></span>
-                                        </label>
-                                    </div>
-                                    <p>
-                                        Create an account by entering the information below. If you are a returning customer
-                                        please login at the top of the page
-                                    </p>
-                                    <div className="checkout__input">
-                                        <p>Account Password<span>*</span></p>
-                                        <input type="text" />
-                                    </div>
-                                    <div className="checkout__input__checkbox">
-                                        <label htmlFor="diff-acc">
-                                            Ship to a different address?
-                                            <input type="checkbox" id="diff-acc" />
-                                            <span className="checkmark"></span>
-                                        </label>
+                                        <p>Ngày giao hàng dự kiến</p>
+                                        <input
+                                            type="datetime-local"
+                                            value={deliveryAt}
+                                            onChange={e => setDeliveryAt(e.target.value)}
+                                        />
                                     </div>
                                     <div className="checkout__input">
-                                        <p>Order notes<span>*</span></p>
-                                        <input type="text" placeholder="Notes about your order, e.g. special notes for delivery." />
+                                        <p>Phương thức thanh toán</p>
+                                        <select value={paymentMethod} onChange={e => setPaymentMethod(e.target.value)}>
+                                            <option value="cod">Thanh toán khi nhận hàng</option>
+                                            <option value="paypal">Paypal</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div className="col-lg-4 col-md-6">
@@ -162,31 +160,6 @@ const Checkout = () => {
                                         </div>
                                         <div className="checkout__order__total">
                                             Tổng tiền: <span>{cart?.totalPrice?.toLocaleString()} đ</span>
-                                        </div>
-                                        <div className="checkout__input__checkbox">
-                                            <label htmlFor="acc-or">
-                                                Create an account?
-                                                <input type="checkbox" id="acc-or" />
-                                                <span className="checkmark"></span>
-                                            </label>
-                                        </div>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adip elit, sed do eiusmod tempor incididunt
-                                            ut labore et dolore magna aliqua.
-                                        </p>
-                                        <div className="checkout__input__checkbox">
-                                            <label htmlFor="payment">
-                                                Check Payment
-                                                <input type="checkbox" id="payment" />
-                                                <span className="checkmark"></span>
-                                            </label>
-                                        </div>
-                                        <div className="checkout__input__checkbox">
-                                            <label htmlFor="paypal">
-                                                Paypal
-                                                <input type="checkbox" id="paypal" />
-                                                <span className="checkmark"></span>
-                                            </label>
                                         </div>
                                         <button type="submit" className="site-btn">
                                             PLACE ORDER
