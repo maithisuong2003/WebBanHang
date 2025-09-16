@@ -1,5 +1,6 @@
 import React from "react";
 import {useAuth} from "../context/AuthContext";
+import {Link} from "react-router-dom";
 
 const Header = () => {
   const {user, logout} = useAuth();
@@ -12,8 +13,11 @@ const Header = () => {
       </div>
       <div className="humberger__menu__cart">
         <ul>
-          <li><a href="#"><i className="fa fa-heart"></i> <span>1</span></a></li>
-          <li><a href="#"><i className="fa fa-shopping-bag"></i> <span>3</span></a></li>
+         <li>
+            <Link to="/cart">
+              <i className="fa fa-shopping-bag"></i> <span>3</span>
+            </Link>
+          </li>
         </ul>
         <div className="header__cart__price">item: <span>$150.00</span></div>
       </div>
@@ -23,7 +27,7 @@ const Header = () => {
           <div>English</div>
           <span className="arrow_carrot-down"></span>
           <ul>
-            <li><a href="#">Spanis</a></li>
+            <li><a href="/cart">Spanis</a></li>
             <li><a href="#">English</a></li>
           </ul>
         </div>
@@ -118,18 +122,18 @@ const Header = () => {
           <div className="col-lg-6">
             <nav className="header__menu">
               <ul>
-                <li className="active"><a href="./">Home</a></li>
-                <li><a href="./shop">Shop</a></li>
+                <li className="active"><Link to="/">Home</Link></li>
+                <li><Link to="/shop">Shop</Link></li>
                 <li><a href="#">Pages</a>
                   <ul className="header__menu__dropdown">
-                    <li><a href="./shop-details.html">Shop Details</a></li>
+                    <li><Link to ="./shop-details.html">Shop Details</Link></li>
                     <li><a href="./shoping-cart.html">Shoping Cart</a></li>
                     <li><a href="./checkout.html">Check Out</a></li>
                     <li><a href="./blog-details.html">Blog Details</a></li>
                   </ul>
                 </li>
-                <li><a href="./blog">Blog</a></li>
-                <li><a href="./contact">Contact</a></li>
+                <li><Link to="/blog">Blog</Link></li>
+                <li><Link to="/contact">Contact</Link></li>
               </ul>
             </nav>
           </div>
