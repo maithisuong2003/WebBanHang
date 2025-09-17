@@ -71,7 +71,7 @@ npm start
 - Quản lý sản phẩm, đơn hàng
 - Tìm kiếm, lọc, xem chi tiết sản phẩm
 - Giỏ hàng, đặt hàng
-
+- Quản lý người dùng, sản phẩm 
 
 ## 📚 Tài liệu/tham khảo
 
