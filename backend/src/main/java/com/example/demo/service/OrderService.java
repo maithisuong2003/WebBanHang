@@ -3,24 +3,20 @@ package com.example.demo.service;
 import com.example.demo.dto.ProductDto;
 import com.example.demo.dto.request.OrderRequest;
 import com.example.demo.dto.response.OrderResponse;
-import com.example.demo.dto.response.ProductResponse;
 import com.example.demo.entity.*;
 import com.example.demo.exception.AppException;
 import com.example.demo.exception.ErrorCode;
 import com.example.demo.mapper.OrderMapper;
-import com.example.demo.mapper.ProductMapper;
 import com.example.demo.reponsitories.*;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Service

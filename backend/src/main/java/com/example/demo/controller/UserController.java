@@ -35,15 +35,7 @@ public class UserController {
                 .result(iUserService.getAllUsers())
                 .build();
     }
-/*    @PostMapping("register")
-    public ApiResponse<UserResponse> createUser(@RequestBody UserRequest userRequest){
-        UserResponse userResponse = iUserService.createUser(userRequest);
-         return ApiResponse.<UserResponse>builder()
-                 .code(200)
-                 .message("Tao tai khoan thanh cong")
-                 .build();
 
-    }*/
 @PostMapping("register")
 public ApiResponse<UserResponse> createUser(@RequestBody UserRequest userRequest){
     try {
@@ -54,7 +46,7 @@ public ApiResponse<UserResponse> createUser(@RequestBody UserRequest userRequest
                 .result(userResponse)
                 .build();
     } catch (Exception e) {
-        e.printStackTrace(); // hoặc log.error("Register error", e);
+        e.printStackTrace();
         return ApiResponse.<UserResponse>builder()
                 .code(9999)
                 .message(e.getMessage())
