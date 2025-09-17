@@ -7,7 +7,6 @@ import './assets/css/jquery-ui.min.css';
 import './assets/css/owl.carousel.min.css';
 import './assets/css/slicknav.min.css';
 import './assets/css/style.css';
-
 import Home from "./client/page/home";
 import Shop from "./client/page/shop";
 
@@ -21,7 +20,9 @@ import ShopDetails from "./client/page/shopDetail";
 import Cart from "./client/page/cart";
 import Checkout from "./client/page/checkout";
 import Ordered from "./client/page/ordered";
-
+import HomeAdmin from "./admin/page/HomeAdmin";
+import User from "./admin/page/User";
+import Product from "./admin/page/Product";
 function App() {
     return (
         <BrowserRouter>
@@ -38,6 +39,9 @@ function App() {
                 <Route path="/blog" element={<Blog/>}/>
                 <Route path="/contact" element={<Contact/>}/>
                 <Route path="/order" element={<Ordered/>}/>
+                <Route path="/homeAdmin" element={<HomeAdmin/>}/>
+                <Route path="/user" element={<User/>}/>
+                <Route path="/product" element={<Product/>}/>
 
             </Routes>
             </AuthProvider>
