@@ -32,4 +32,12 @@ public class OrderController {
                 .result(list)
                 .build();
     }
+    @GetMapping("/all")
+    public ApiResponse<List<OrderResponse>> getAll(){
+        List<OrderResponse> list = iorderService.getOrdersByAdmin();
+        return ApiResponse.<List<OrderResponse>>builder()
+                .code(200)
+                .result(list)
+                .build();
+    }
 }

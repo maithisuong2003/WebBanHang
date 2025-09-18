@@ -23,6 +23,7 @@ import Ordered from "./client/page/ordered";
 import HomeAdmin from "./admin/page/HomeAdmin";
 import User from "./admin/page/User";
 import Product from "./admin/page/Product";
+import OrderAdmin from "./admin/page/Order";
 function App() {
     return (
         <BrowserRouter>
@@ -42,6 +43,7 @@ function App() {
                 <Route path="/homeAdmin" element={<HomeAdmin/>}/>
                 <Route path="/user" element={<User/>}/>
                 <Route path="/product" element={<Product/>}/>
+                <Route path="/orderAdmin" element={<OrderAdmin/>}/>
 
             </Routes>
             </AuthProvider>
