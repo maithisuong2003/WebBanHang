@@ -109,7 +109,14 @@ public class OrderService implements IOrderService{
 
     @Override
     public List<OrderResponse> getOrdersByAdmin() {
-        return null;
+        List<OrderEntity> orderEntityList = orderRepository.findAll();
+        List<OrderResponse> orderResponseList = new ArrayList<>();
+        for (OrderEntity order : orderEntityList){
+            OrderResponse orderResponse = orderMapper.toOrderResponse(order);
+            orderResponseList.add(orderResponse);
+        }
+
+        return orderResponseList;
     }
 
     @Override

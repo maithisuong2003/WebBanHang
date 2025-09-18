@@ -23,7 +23,7 @@ function Sidebar() {
                         { label: "Dashboard", icon: "ni ni-tv-2", color: "text-blue-500", href: "/homeAdmin" },
                         { label: "User", icon: "ni ni-calendar-grid-58", color: "text-orange-500", href: "/user" },
                         { label: "Product", icon: "ni ni-credit-card", color: "text-emerald-500", href: "/product" },
-                        { label: "Virtual Reality", icon: "ni ni-app", color: "text-cyan-500", href: "./pages/virtual-reality.html" },
+                        { label: "Order", icon: "ni ni-app", color: "text-cyan-500", href: "/orderAdmin" },
                         { label: "RTL", icon: "ni ni-world-2", color: "text-red-600", href: "./pages/rtl.html" },
                     ].map((item, idx) => (
                         <li className="mt-0.5 w-full" key={item.label}>

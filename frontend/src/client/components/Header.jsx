@@ -73,26 +73,32 @@ const Header = () => {
                           </span>
                               {showMenu && (
                                   <ul className="dropdown-menu-user">
+                                      {user.roles && user.roles.includes("ADMIN")  && (
+                                          <li>
+                                            <Link
+                                                to="/homeAdmin"
+                                                onClick={() => setShowMenu(false)}
+                                                className="dropdown-item-user"
+                                            >
+                                              Admin
+                                            </Link>
+                                          </li>
+                                      )}
                                     <li>
-                                      <Link to="/myinfor" onClick={() => setShowMenu(false)}>
+                                      <Link to="/myinfor" onClick={() => setShowMenu(false)} className="dropdown-item-user">
                                         MyInfor
                                       </Link>
                                     </li>
                                     <li>
-                                      <Link to="/order" onClick={() => setShowMenu(false)}>
+                                      <Link to="/order" onClick={() => setShowMenu(false)} className="dropdown-item-user">
                                         Ordered
                                       </Link>
                                     </li>
                                     <li>
                                       <button
                                           onClick={() => { logout(); setShowMenu(false); }}
-                                          style={{
-                                            border: "none",
-                                            background: "none",
-                                            padding: 0,
-                                            color: "#333",
-                                            cursor: "pointer"
-                                          }}
+                                          className="dropdown-item-user"
+                                          type="button"
                                       >
                                         Logout
                                       </button>
@@ -104,7 +110,6 @@ const Header = () => {
                             <a href="/login"><i className="fa fa-user"></i> Login</a>
                         )}
                       </div>
-                      {/* CSS dropdown */}
                       <style>{`
                       .dropdown-menu-user {
                         position: absolute;
