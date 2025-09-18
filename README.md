@@ -6,7 +6,7 @@ Dự án Website Bán Hàng Fullstack với:
 
 ## 🚀 Giới thiệu
 
-Đây là dự án website bán hàng online cho phép người dùng xem sản phẩm, đặt hàng, đăng nhập/đăng ký tài khoản.
+Đây là dự án website bán hàng online cho phép người dùng xem sản phẩm, đặt hàng, đăng nhập/đăng ký tài khoản, admin quản lý người dùng, sản phẩm, đơn hàng.
 
 ## 🛠️ Công nghệ sử dụng
 
